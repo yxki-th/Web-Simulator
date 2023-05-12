@@ -12,12 +12,13 @@ const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#bg'),
 });
 
+//initialising the renderer and the window space for rendering
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.set(0,500,150);
 renderer.render(scene, camera);
 
-
+// class to construct the planets and later to use when when creating their orbits and orbit animations
 class Planets{
   constructor(radius, mass, orbitalVelocity, inclination, color){
     this.radius = radius;
@@ -35,6 +36,7 @@ class Planets{
   //orbit(){}
 }
 
+// each planet is renderd out, might convert each planet into its class later down the line for better manipulation and modulation
 let sunParameters = new Planets((1500),(1.989 * Math.pow(10,30)), (0), (0), (0xffff00))
 let sun = sunParameters.createPlanet()
 sun.position.set(0,0,0)
@@ -74,7 +76,7 @@ neptune.position.set((4471.1 * Math.pow(10,2)),0,0)
 scene.add(sun, mercury, venus, earth, mars, jupitar, saturn, uranus, neptune)
 
 
-
+// helpers for building incudes a light and a flat plane grid for reference
 const light = new THREE.AmbientLight(0xffffff)
 const gridHelper = new THREE.GridHelper(200, 50);
 scene.add(light, gridHelper)
@@ -83,9 +85,10 @@ scene.add(light, gridHelper)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
-//function cameraControls() {}
+// camera control function to change the camera focus when clicking on a specific planet, also will try and remap some of the camera movememnt with this fucnction
+function cameraControls() {}
 
-
+//animation function, acts like a pygame event loop
 function animate() {
     requestAnimationFrame(animate);
 
