@@ -1,0 +1,81 @@
+class Shapes{
+constructor(geometry, color){
+this.geometry = geometry;
+this.color = color;
+}
+createSphere(){
+    const geometry = new THREE.SphereGeometry(this.geometry);
+    const material = new THREE.MeshStandardMaterial({color: this.color, wireframe:true});
+    const sphere = new THREE.Mesh(geometry, material);
+    return sphere;
+};
+createTorus(){
+  const geometry = new THREE.TorusGeometry(this.geometry);
+  const material = new THREE.MeshBasicMaterial({color: this.color, wireframe: true});
+  const torus = new THREE.Mesh( geometry, material);
+  return torus;
+}
+}
+let earth1Info = new Shapes((15, 32, 16), 0xadccea);
+let earth1 = earth1Info.createSphere();
+let moon1Info = new Shapes((5, 32, 15), );
+let moon1 = moon1Info.createSphere();
+let ringInfomation = new Shapes((30, 0.1, 10,10) )
+let ring = ringInfomation.createTorus()
+
+
+const earthTexture = new THREE.TextureLoader().load('earth.jpeg')
+const earth = new THREE.Mesh(
+      new THREE.SphereGeometry(15, 32, 16),
+      new THREE.MeshStandardMaterial({map: earthTexture,})
+
+);
+const moonTexture = new THREE.TextureLoader().load('moon.jpeg');
+const moon = new THREE.Mesh(
+    new THREE.SphereGeometry(3,32,32),
+    new THREE.MeshStandardMaterial({map: moonTexture}), 
+);
+const venusTexture = new THREE.TextureLoader().load('venus.jpeg');
+const venus = new THREE.Mesh(
+    new THREE.SphereGeometry(3,64,32),
+    new THREE.MeshStandardMaterial({map: venusTexture}),
+);
+moon.position.set(20,20,20);
+venus.position.set(50,0,0);
+scene.add(earth, moon, venus, ring)
+
+
+const planets = [earth, venus];
+
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(5, 5, 5);
+const light = new THREE.AmbientLight(0xffffff)
+const lightHelper = new THREE.PointLightHelper(pointLight)
+const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper, light, gridHelper);
+
+document.addEventListener('mousemove', function(event) {
+    var mouseX = event.clientX; // Get the horizontal coordinate of the mouse
+    var mouseY = event.clientY; // Get the vertical coordinate of the mouse
+    var mouseZ = event.clientZ;
+  });
+
+
+
+ const controls = new OrbitControls(camera, renderer.domElement);
+ 
+
+
+ 
+function addStar(){
+    const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+    const material = new THREE.MeshStandardMaterial({color: 0xffffff});
+    const star = new THREE.Mesh(geometry, material);
+
+    const[x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+
+    star.position.set(x , y, z);
+    scene.add(star)
+}    
+
+Array(200).fill().forEach(addStar)
