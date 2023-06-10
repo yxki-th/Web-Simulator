@@ -37,6 +37,7 @@ class Planets{
 }
 
 // each planet is renderd out, might convert each planet into its class later down the line for better manipulation and modulation
+// colours are tempory each planet and the sun will have layers and texture mapping for reaslistic visuals
 let sunParameters = new Planets((1500),(1.989 * Math.pow(10,30)), (0), (0), (0xffff00))
 let sun = sunParameters.createPlanet()
 sun.position.set(0,0,0)
