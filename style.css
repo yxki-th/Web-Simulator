@@ -5,3 +5,14 @@ canvas {
   z-index: 1;
 }
 
+html {
+  overflow: hidden;
+  z-index: 2;
+}
+
+#bg{
+  z-index: 1;
+}
+
+
+
